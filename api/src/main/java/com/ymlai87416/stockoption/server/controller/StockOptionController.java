@@ -23,6 +23,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("hkstockoption/api")
 public class StockOptionController {
 
     /**

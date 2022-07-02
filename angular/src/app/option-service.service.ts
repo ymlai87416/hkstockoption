@@ -14,8 +14,8 @@ import {
 } from './option-result.model';
 import { sprintf } from 'sprintf-js';
 
-//export const WEBSERVICE_ROOT = 'http://trade.ymlai87416.com/hkstockoption/api'
-export const WEBSERVICE_ROOT = 'http://localhost:8080'
+export const WEBSERVICE_ROOT = 'https://trade.ymlai87416.com/hkstockoption/api'
+//export const WEBSERVICE_ROOT = 'http://localhost:8080'
 export const SEARCH_STOCK_BY_SEHK_CODE_URL = WEBSERVICE_ROOT + '/stock/%s';
 export const SEARCH_STOCK_BY_SEHK_CODE_WITH_PARAM_URL = WEBSERVICE_ROOT + '/stock/%s?startDate=%s&endDate=%s';
 export const SEARCH_STOCK_OPTION_BY_SEHK_CODE_URL = WEBSERVICE_ROOT + '/stockOption/sehk/%s';
