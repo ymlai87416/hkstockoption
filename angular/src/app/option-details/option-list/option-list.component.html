@@ -1,0 +1,25 @@
+
+<div class="ui icon buttons">
+    <button class="ui button" [ngClass]="{ blue: displayMode=='price' }" (click)="setDisplayMode('price')" >Settle price</button>
+    <span class="or" ></span>
+    <button class="ui button" [ngClass]="{ blue: displayMode=='openInterest' }" (click)="setDisplayMode('openInterest')" >Open interest</button>
+  </div>
+
+<table class="ui unstackable celled table">
+  <thead>
+    <th> Strike Price</th>
+    <th> Call</th>
+    <th *ngFor="let item of callMonthList"> {{item}}</th>
+    <th> Put</th>
+    <th *ngFor="let item of callMonthList"> {{item}}</th>
+  </thead>
+
+  <tr *ngFor="let price of priceList; let i = index">
+    <td>{{price}}</td> 
+    <td class="active"></td> 
+    <td *ngFor="let data of callMonthList; let j = index">{{ callData[i][j] }}</td>
+    <td class="active"></td> 
+    <td *ngFor="let data of putMonthList; let j = index">{{ putData[i][j] }}</td>
+  </tr>   
+</table>
+

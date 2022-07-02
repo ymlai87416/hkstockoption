@@ -1,0 +1,38 @@
+<app-option-iv-query-form
+    (loading)="loading=$event"
+    (ivseriesResult)="updateIvSeries($event)"
+    (priceResult)="priceResult=$event"
+    (selectedDate)="selectedDate=$event"
+    (error)="error=$event"
+    ></app-option-iv-query-form>
+<br />
+
+<img
+    style="float: right;"
+    *ngIf="loading"
+    src='assets/images/loading.gif' />
+
+<app-implied-volatility-summary
+    [hidden]="ivseriesResult == null || ivseriesResult == undefined"
+    [ivseriesResult]="ivseriesResult"
+    [priceResult]="priceResult"
+    [selectedDate]="selectedDate"
+    ></app-implied-volatility-summary>
+<br />
+
+<app-implied-volatility-graph 
+    [hidden]="ivseriesResult == null || ivseriesResult == undefined"
+    [ivseriesResult]="ivseriesResult"
+   >
+</app-implied-volatility-graph>
+
+<div [hidden]="!((ivseriesResult == null || ivseriesResult == undefined) && !error)" class="ui message">
+    Start searching by choosing an asset and a date.
+</div>
+
+<div [hidden]="!((ivseriesResult == null || ivseriesResult == undefined) && error)" class="ui red message">
+    Failed to load data.
+</div>
+
+<p><i class="copyright icon"></i>All right reserved by Toxic Lab 2016-2018</p>
+<p>Data is from Hong Kong Exchanges and Market Clearing. This website is for personnel use only.</p>

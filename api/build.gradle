@@ -1,0 +1,52 @@
+buildscript {
+    ext {
+        springBootVersion = '2.7.0'
+    }
+    repositories {
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+//apply plugin: 'maven'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+
+group = 'com.ymlai87416.stockoption'
+version = '0.0.1-SNAPSHOT'
+description = """server"""
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {
+    maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+}
+dependencies {
+
+    implementation group: 'org.jvnet.mimepull', name: 'mimepull', version: '1.10.0'
+
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version:"${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version:"${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version:"${springBootVersion}"
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version:"${springBootVersion}"
+
+    implementation group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version:"2.7.1"
+    implementation group: 'de.codecentric', name: 'spring-boot-admin-starter-server', version:"2.7.1"
+    implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'
+    implementation group: 'com.github.ulisesbocchio', name: 'jasypt-spring-boot', version: '3.0.4'
+    implementation group: 'mysql', name: 'mysql-connector-java', version:'8.0.29'
+
+    testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:"${springBootVersion}"
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
+}

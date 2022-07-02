@@ -3,7 +3,7 @@ package com.ymlai87416.stockoption.server.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "stock_option_underlying_asset")
+@Table(name = "hk_option_list")
 public class HKOption {
     private String hkatsCode;
     private String ticker;

@@ -1,0 +1,24 @@
+<form class="ui form" autoComplete="off">
+  <div class="fields">
+    <div class="field">
+      <label>Asset</label>
+      <select [(ngModel)] = "selectedAsset" class="ui fluid dropdown" name="ticker">
+        <option *ngFor="let c of underlyingAssetList" [ngValue]="c">{{c.ticker + ": " + c.name}}</option>
+      </select> 
+    </div>
+    <div class="field">
+        <label>Date</label>
+        <div class="ui left icon input">
+            <i class="calendar icon"></i>
+            <input suiDatepicker name="date"
+              [(ngModel)]="date"
+              [pickerMode]="mode"
+              [pickerFirstDayOfWeek]="1"
+              [pickerUseNativeOnMobile]="false">
+        </div>
+    </div>
+
+    <button class="ui button" type="submit" #search>Submit</button>
+  </div>
+    
+  </form>

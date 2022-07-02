@@ -1,0 +1,134 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hkstock-web
+  name: hkstock-web-deploy
+  namespace: trade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hkstock-web
+  template:
+    metadata:
+      labels:
+        app: hkstock-web
+    spec:
+      containers:
+      - image: ymlai87416/hkstock-web:1.0
+        imagePullPolicy: Always
+        name: hkstock-web
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hkstock-api
+  name: hkstock-api-deploy
+  namespace: trade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hkstock-api
+  template:
+    metadata:
+      labels:
+        app: hkstock-api
+    spec:
+      containers:
+      - image: ymlai87416/hkstock-api:1.0
+        imagePullPolicy: Always
+        name: hkstock-api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hkstock-web
+  name: hkstock-web-svc
+  namespace: trade
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  selector:
+    app: hkstock-web
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hkstock-api
+  name: hkstock-api-svc
+  namespace: data-app
+spec:
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: hkstock-api
+
+--- 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hkstock-nginx
+  namespace: trade
+  annotations:
+    kubernetes.io/ingress.class: "nginx"    
+    cert-manager.io/issuer: "letsencrypt-ymlai-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - trade.ymlai87416.com
+    secretName: ymlai87416-trade-tls-replica
+  rules:
+  - host: "trade.ymlai87416.com"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/hkstock/api"
+        backend:
+          service:
+            name: hkstock-api-svc
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: "/hkstock"
+        backend:
+          service:
+            name: hkstock-web-svc
+            port:
+              number: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hkstock-web
+  name: hkstock-web-deploy
+  namespace: trade
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hkstock-web
+  template:
+    metadata:
+      labels:
+        app: hkstock-web
+    spec:
+      containers:
+      - image: ymlai87416/hkstock-web:1.0
+        imagePullPolicy: Always
+        name: hkstock-web

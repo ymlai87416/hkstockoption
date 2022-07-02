@@ -241,8 +241,8 @@ def run_job():
             (symbol, retry) = queue.pop(0)
             cc += 1
 
-            if cc > 5:
-                break
+            #if cc > 5:
+            #    break
 
             data, success = download_data(symbol)
             #print("xx" + str(symbol))

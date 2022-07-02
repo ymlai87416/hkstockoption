@@ -1,0 +1,38 @@
+<app-option-details-query-form
+    (loading)="loading=$event"
+    (stockOptionList)="stockOptionList=$event"
+    (ivSeries)="ivSeries=$event"
+    (stock)="stock=$event"
+    (selectedDate)="selectedDate=$event"
+    (error)="error=$event"
+    ></app-option-details-query-form>
+<br/>
+
+<img
+    style="float: right;"
+    *ngIf="loading"
+    src='assets/images/loading.gif' />
+
+<app-stock-summary
+    [hidden]="!isInCorrectState()"
+    [stock]="stock"
+    [ivSeries]="ivSeries"
+    [selectedDate]="selectedDate"
+    ></app-stock-summary>
+<br/>
+
+<app-option-list 
+    [hidden]="!isInCorrectState()"
+    [stockOptionList]="stockOptionList">
+</app-option-list>
+
+<div [hidden]="isInCorrectState() || (!isInCorrectState() && error)" class="ui message">
+    Start searching by choosing an asset and a date.
+</div>
+
+<div [hidden]="isInCorrectState() || (!isInCorrectState() && !error)" class="ui red message">
+    Failed to load data.
+</div>
+
+<p><i class="copyright icon"></i>All right reserved by Toxic Lab 2016-2018</p>
+<p>Data is from Hong Kong Exchanges and Market Clearing. This website is for personnel use only.</p>
