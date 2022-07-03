@@ -267,7 +267,7 @@ def run_job(region, batch_date_str):
             sys.exit(1)
 
         for row in symbol_adj:
-            symbol = row["symbol"]
+            symbol = row["ticker"]
             max_diff = row["max_diff"]
             success = log_message(cursor, f"Please check HK symbol {symbol}, adj close not matched, max diff= {max_diff}")
             if not success:
