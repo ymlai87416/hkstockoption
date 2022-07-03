@@ -40,11 +40,12 @@ values ( %s, %s, %s, %s, %s, %s, %s, %s )
 """
 
 sql_detect_adj_close_diff = """
-select t.symbol_id, max(abs(t.adj_close_price - p.adj_close_price)) as max_diff
+select t.symbol_id, s.ticker, max(abs(t.adj_close_price - p.adj_close_price)) as max_diff
  from hkstock_tmp t
 left join daily_price p
     on (t.symbol_id = p.symbol_id and t.price_date = p.price_date)
-    where abs(t.adj_close_price - p.adj_close_price) > {threshold}
+left join symbol s on (t.symbol_id = s.id)
+where abs(t.adj_close_price - p.adj_close_price) > {threshold}
 group by t.symbol_id
 """
 
