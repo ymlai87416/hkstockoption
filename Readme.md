@@ -6,7 +6,7 @@ Production URL: [http://trade.ymlai87416.com/hkstockoption](http://trade.ymlai87
 
 Offloaded some functionality to streamlit
 
-URL: [Streamlit](https://trade.ymlai87416.com/streamlit/SPX_option_study)
+URL: [Streamlit](https://trade.ymlai87416.com/streamlit/)
 
 
 ### Web
