@@ -37,7 +37,6 @@ DOCKER_BUILDKIT=1 docker build -t ymlai87416/hkstock-batch:1.0 .
 
 ### Streamlit - data visualization
 
-Use airflow to run batch job
 ```
 DOCKER_BUILDKIT=1 docker build -t ymlai87416/trade-streamlit:1.0 .
 ```
