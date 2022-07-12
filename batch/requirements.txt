@@ -1,3 +1,7 @@
 mysql-connector-python
 yfinance
 pandas
+pymongo[srv]
+scipy
+numpy
+pytz

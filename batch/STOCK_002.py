@@ -220,6 +220,7 @@ def run_job(region, batch_date_str):
             sys.exit(1)
 
         start_date = batch_date - datetime.timedelta(days=7)
+        end_date = batch_date + datetime.timedelta(days=1)  # include today
         
         vendor_rows, success = get_data_vendor(cursor, "Yahoo")
         if not success:
@@ -240,7 +241,7 @@ def run_job(region, batch_date_str):
 
         while queue:
             (symbol, retry) = queue.pop(0)
-            data, success = dowload_data(symbol, start_date, batch_date)
+            data, success = dowload_data(symbol, start_date, end_date)
             #print("x")
             #print(data)
 
@@ -272,6 +273,8 @@ def run_job(region, batch_date_str):
             success = log_message(cursor, f"Please check HK symbol {symbol}, adj close not matched, max diff= {max_diff}")
             if not success:
                 print("Failed to write log to db.")
+
+        mydb.commit()
 
         success = merge_into_price_date(cursor, vendor_id)
         if not success:

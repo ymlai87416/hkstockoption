@@ -1,0 +1,87 @@
+## useless daily gamma profile
+
+# ---=== CALCULATE GAMMA PROFILE for TODAY ===---
+levels = np.arange(fromStrike, toStrike)  #origin 60
+#levels = np.range(fromStrike, toStrike)
+
+# For 0DTE options, I'm setting DTE = 1 day, otherwise they get excluded
+df['daysTillExp'] = [1/262 if (np.busday_count(todayDate, x.date())) == 0 \
+                           else np.busday_count(todayDate, x.date())/262 for x in df.ExpirationDate]
+
+df = df[df.today]
+
+totalGamma = []
+
+# For each spot level, calc gamma exposure at that point
+breakdown = dict()
+for level in levels:
+    call_level_name = 'callGammaEx'
+    put_level_name = 'putGammaEx'
+
+    df[call_level_name] = df.apply(lambda row : calcGammaEx(level, row['StrikePrice'], row['CallIV'], 
+                                                          row['daysTillExp'], 0, 0, "call", row['CallOpenInt']), axis = 1)
+
+    df[put_level_name] = df.apply(lambda row : calcGammaEx(level, row['StrikePrice'], row['PutIV'], 
+                                                         row['daysTillExp'], 0, 0, "put", row['PutOpenInt']), axis = 1)    
+
+    totalGamma.append(df[call_level_name].sum() - df[put_level_name].sum())
+
+    for index, row in df.iterrows():
+        callName = row["Calls"]
+        putName = row["Puts"]
+        subCallGamma = breakdown.get(callName)
+        subPutGamma = breakdown.get(putName)
+
+        if subCallGamma is None:
+            breakdown[callName] = []
+        if subPutGamma is None:
+            breakdown[putName] = []
+        
+        breakdown[callName].append(row[call_level_name])
+        breakdown[putName].append(-row[put_level_name])
+
+totalGamma = np.array(totalGamma) / 10**9
+for key in breakdown.keys():
+    breakdown[key] = np.array(breakdown[key]) / 10**9 
+
+df_export = pd.DataFrame.from_dict(breakdown, orient='index')
+df_export.to_csv("/Users/yiuminglai/GitProjects/hkstockoption/streamlit/test/data/" + "gamma2.csv")
+
+# Find Gamma Flip Point
+zeroCrossIdx = np.where(np.diff(np.sign(totalGamma)))[0]
+
+negGamma = totalGamma[zeroCrossIdx]
+posGamma = totalGamma[zeroCrossIdx+1]
+negStrike = levels[zeroCrossIdx]
+posStrike = levels[zeroCrossIdx+1]
+
+# Writing and sharing this code is only possible with your support! 
+# If you find it useful, consider supporting us at perfiliev.com/support :)
+zeroGamma = posStrike - ((posStrike - negStrike) * posGamma/(posGamma-negGamma))
+try:
+    zeroGamma = zeroGamma[0]
+except:
+    zeroGamma = fromStrike
+
+# Chart 4: Gamma Profile on today
+fig, ax = plt.subplots()
+plt.grid()
+
+for key in breakdown.keys():
+    plt.plot(levels, breakdown[key], label=key, alpha=0.4)
+
+plt.plot(levels, totalGamma, label="Expiries")
+
+chartTitle = "Gamma Profile, SPX, " + todayDate.strftime('%d %b %Y')
+plt.title(chartTitle, fontweight="bold", fontsize=20)
+plt.xlabel('Index Price', fontweight="bold")
+plt.ylabel('Gamma Exposure ($ billions/1% move)', fontweight="bold")
+plt.axvline(x=spotPrice, color='r', lw=1, label="SPX Spot: " + str("{:,.0f}".format(spotPrice)))
+plt.axvline(x=zeroGamma, color='g', lw=1, label="Gamma Flip: " + str("{:,.0f}".format(zeroGamma)))
+plt.axhline(y=0, color='grey', lw=1)
+plt.xlim([fromStrike, toStrike])
+trans = ax.get_xaxis_transform()
+plt.fill_between([fromStrike, zeroGamma], min(totalGamma), max(totalGamma), facecolor='red', alpha=0.1, transform=trans)
+plt.fill_between([zeroGamma, toStrike], min(totalGamma), max(totalGamma), facecolor='green', alpha=0.1, transform=trans)
+plt.legend()
+plt.show()

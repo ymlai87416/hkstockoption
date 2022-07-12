@@ -1,0 +1,360 @@
+{
+    "data": {
+      "pageTitle": "AMD Options Greeks",
+      "table": {
+        "headers": {
+          "cDelta": "DELTA",
+          "cGamma": "GAMMA",
+          "cRho": "RHO",
+          "cTheta": "THETA",
+          "cVega": "VEGA",
+          "cIV": "IV",
+          "Strike": "STRIKE",
+          "pDelta": "DELTA",
+          "pGamma": "GAMMA",
+          "pRho": "RHO",
+          "pTheta": "THETA",
+          "pVega": "VEGA",
+          "pIV": "IV"
+        },
+        "rows": [
+          {
+            "cDelta": 0.82775,
+            "cGamma": 0.02924,
+            "cRho": 0.02203,
+            "cTheta": -0.08243,
+            "cVega": 0.03966,
+            "cIV": 0.5615,
+            "strike": 72,
+            "pDelta": -0.1738,
+            "pGamma": 0.0292,
+            "pRho": -0.00562,
+            "pTheta": -0.07983,
+            "pVega": 0.03989,
+            "pIV": 0.56562,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00072000"
+          },
+          {
+            "cDelta": 0.79974,
+            "cGamma": 0.03305,
+            "cRho": 0.0215,
+            "cTheta": -0.08768,
+            "cVega": 0.04354,
+            "cIV": 0.5456,
+            "strike": 73,
+            "pDelta": -0.20504,
+            "pGamma": 0.03274,
+            "pRho": -0.00665,
+            "pTheta": -0.0872,
+            "pVega": 0.04416,
+            "pIV": 0.55845,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00073000"
+          },
+          {
+            "cDelta": 0.7623,
+            "cGamma": 0.0365,
+            "cRho": 0.02065,
+            "cTheta": -0.09629,
+            "cVega": 0.04806,
+            "cIV": 0.54521,
+            "strike": 74,
+            "pDelta": -0.2396,
+            "pGamma": 0.03629,
+            "pRho": -0.00778,
+            "pTheta": -0.09392,
+            "pVega": 0.04827,
+            "pIV": 0.55078,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00074000"
+          },
+          {
+            "cDelta": 0.72285,
+            "cGamma": 0.0398,
+            "cRho": 0.01972,
+            "cTheta": -0.10328,
+            "cVega": 0.05205,
+            "cIV": 0.54154,
+            "strike": 75,
+            "pDelta": -0.27732,
+            "pGamma": 0.03977,
+            "pRho": -0.00903,
+            "pTheta": -0.09961,
+            "pVega": 0.05207,
+            "pIV": 0.54205,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00075000"
+          },
+          {
+            "cDelta": 0.68227,
+            "cGamma": 0.04326,
+            "cRho": 0.01877,
+            "cTheta": -0.10741,
+            "cVega": 0.05541,
+            "cIV": 0.5303,
+            "strike": 76,
+            "pDelta": -0.31924,
+            "pGamma": 0.04285,
+            "pRho": -0.01042,
+            "pTheta": -0.10502,
+            "pVega": 0.05551,
+            "pIV": 0.53651,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00076000"
+          },
+          {
+            "cDelta": 0.63629,
+            "cGamma": 0.04562,
+            "cRho": 0.01761,
+            "cTheta": -0.11265,
+            "cVega": 0.05834,
+            "cIV": 0.5295,
+            "strike": 77,
+            "pDelta": -0.36384,
+            "pGamma": 0.04557,
+            "pRho": -0.01191,
+            "pTheta": -0.10895,
+            "pVega": 0.05835,
+            "pIV": 0.53029,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00077000"
+          },
+          {
+            "cDelta": 0.58985,
+            "cGamma": 0.04843,
+            "cRho": 0.01644,
+            "cTheta": -0.11366,
+            "cVega": 0.06041,
+            "cIV": 0.51666,
+            "strike": 78,
+            "pDelta": -0.41076,
+            "pGamma": 0.04783,
+            "pRho": -0.01348,
+            "pTheta": -0.11118,
+            "pVega": 0.06044,
+            "pIV": 0.52326,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00078000"
+          },
+          {
+            "cDelta": 0.54033,
+            "cGamma": 0.05023,
+            "cRho": 0.01516,
+            "cTheta": -0.11401,
+            "cVega": 0.06168,
+            "cIV": 0.50846,
+            "strike": 79,
+            "pDelta": -0.45967,
+            "pGamma": 0.0492,
+            "pRho": -0.01514,
+            "pTheta": -0.11238,
+            "pVega": 0.06168,
+            "pIV": 0.51917,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00079000"
+          },
+          {
+            "cDelta": 0.49001,
+            "cGamma": 0.05047,
+            "cRho": 0.01381,
+            "cTheta": -0.11439,
+            "cVega": 0.06197,
+            "cIV": 0.50852,
+            "strike": 80,
+            "pDelta": -0.50949,
+            "pGamma": 0.04997,
+            "pRho": -0.01685,
+            "pTheta": -0.11147,
+            "pVega": 0.06198,
+            "pIV": 0.51358,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00080000"
+          },
+          {
+            "cDelta": 0.43856,
+            "cGamma": 0.05086,
+            "cRho": 0.01243,
+            "cTheta": -0.11078,
+            "cVega": 0.06126,
+            "cIV": 0.4988,
+            "strike": 81,
+            "pDelta": -0.56009,
+            "pGamma": 0.0502,
+            "pRho": -0.01859,
+            "pTheta": -0.10825,
+            "pVega": 0.06129,
+            "pIV": 0.50566,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00081000"
+          },
+          {
+            "cDelta": 0.38823,
+            "cGamma": 0.04992,
+            "cRho": 0.01105,
+            "cTheta": -0.10651,
+            "cVega": 0.05954,
+            "cIV": 0.49396,
+            "strike": 82,
+            "pDelta": -0.61064,
+            "pGamma": 0.04958,
+            "pRho": -0.02035,
+            "pTheta": -0.10327,
+            "pVega": 0.0596,
+            "pIV": 0.49778,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00082000"
+          },
+          {
+            "cDelta": 0.33909,
+            "cGamma": 0.04823,
+            "cRho": 0.0097,
+            "cTheta": -0.10052,
+            "cVega": 0.05688,
+            "cIV": 0.48845,
+            "strike": 83,
+            "pDelta": -0.65706,
+            "pGamma": 0.04744,
+            "pRho": -0.02202,
+            "pTheta": -0.09885,
+            "pVega": 0.05712,
+            "pIV": 0.49867,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00083000"
+          },
+          {
+            "cDelta": 0.29271,
+            "cGamma": 0.04568,
+            "cRho": 0.0084,
+            "cTheta": -0.09354,
+            "cVega": 0.05342,
+            "cIV": 0.48438,
+            "strike": 84,
+            "pDelta": -0.70402,
+            "pGamma": 0.04523,
+            "pRho": -0.02371,
+            "pTheta": -0.09119,
+            "pVega": 0.0537,
+            "pIV": 0.49166,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00084000"
+          },
+          {
+            "cDelta": 0.24836,
+            "cGamma": 0.04259,
+            "cRho": 0.00716,
+            "cTheta": -0.08505,
+            "cVega": 0.04921,
+            "cIV": 0.4785,
+            "strike": 85,
+            "pDelta": -0.75056,
+            "pGamma": 0.0425,
+            "pRho": -0.02539,
+            "pTheta": -0.08132,
+            "pVega": 0.04933,
+            "pIV": 0.48057,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00085000"
+          },
+          {
+            "cDelta": 0.20954,
+            "cGamma": 0.03886,
+            "cRho": 0.00606,
+            "cTheta": -0.07693,
+            "cVega": 0.04473,
+            "cIV": 0.47658,
+            "strike": 86,
+            "pDelta": -0.78208,
+            "pGamma": 0.03849,
+            "pRho": -0.02668,
+            "pTheta": -0.07696,
+            "pVega": 0.04576,
+            "pIV": 0.49231,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00086000"
+          },
+          {
+            "cDelta": 0.17399,
+            "cGamma": 0.0349,
+            "cRho": 0.00504,
+            "cTheta": -0.06817,
+            "cVega": 0.03991,
+            "cIV": 0.47354,
+            "strike": 87,
+            "pDelta": -0.82584,
+            "pGamma": 0.0349,
+            "pRho": -0.02829,
+            "pTheta": -0.06387,
+            "pVega": 0.03993,
+            "pIV": 0.47386,
+            "url": "/market-activity/stocks/amd/option-chain/call-put-options/amd---220722c00087000"
+          }
+        ]
+      },
+      "filters": [
+        {
+          "label": "Jul 01, 2022",
+          "value": "2022-07-01"
+        },
+        {
+          "label": "Jul 08, 2022",
+          "value": "2022-07-08"
+        },
+        {
+          "label": "Jul 15, 2022",
+          "value": "2022-07-15"
+        },
+        {
+          "label": "Jul 22, 2022",
+          "value": "2022-07-22"
+        },
+        {
+          "label": "Jul 29, 2022",
+          "value": "2022-07-29"
+        },
+        {
+          "label": "Aug 05, 2022",
+          "value": "2022-08-05"
+        },
+        {
+          "label": "Aug 12, 2022",
+          "value": "2022-08-12"
+        },
+        {
+          "label": "Aug 19, 2022",
+          "value": "2022-08-19"
+        },
+        {
+          "label": "Aug 26, 2022",
+          "value": "2022-08-26"
+        },
+        {
+          "label": "Sep 16, 2022",
+          "value": "2022-09-16"
+        },
+        {
+          "label": "Oct 21, 2022",
+          "value": "2022-10-21"
+        },
+        {
+          "label": "Nov 18, 2022",
+          "value": "2022-11-18"
+        },
+        {
+          "label": "Dec 16, 2022",
+          "value": "2022-12-16"
+        },
+        {
+          "label": "Jan 20, 2023",
+          "value": "2023-01-20"
+        },
+        {
+          "label": "Mar 17, 2023",
+          "value": "2023-03-17"
+        },
+        {
+          "label": "Apr 21, 2023",
+          "value": "2023-04-21"
+        },
+        {
+          "label": "Jun 16, 2023",
+          "value": "2023-06-16"
+        },
+        {
+          "label": "Jan 19, 2024",
+          "value": "2024-01-19"
+        }
+      ]
+    },
+    "message": null,
+    "status": {
+      "rCode": 200,
+      "bCodeMessage": null,
+      "developerMessage": null
+    }
+  }

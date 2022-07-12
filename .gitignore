@@ -1,3 +1,6 @@
 crawler/
 backup/
 set_env.sh
+streamlit/config_debug.py
+streamlit/mongodb_test.py
+scraping_api
