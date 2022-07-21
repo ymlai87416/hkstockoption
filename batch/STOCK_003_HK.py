@@ -1,4 +1,5 @@
 # Fetch option data from HKEx
+# 20220721 add new option meta table for better filtering
 
 import mysql.connector
 import config
@@ -33,7 +34,8 @@ sql_create_tmp_table = """create table hk_stock_option_tmp(
 	close_price decimal(19,4) NULL,
     volume bigint NULL,
 	iv decimal(19,4) NULL,
-	open_interest bigint NULL
+	open_interest bigint NULL,
+    is_new tinyint(1) NULL
 )
 """
 
@@ -67,6 +69,8 @@ left join symbol s on (s.exchange_id = {exchange_id} and s.ticker = concat(t.sto
 set t.series_id = s.id 
 """
 
+sql_mark_new = """update  hk_stock_option_tmp set is_new = 1 where series_id is NULL"""
+
 sql_insert_into_table_new_series = """insert into symbol
 (version, exchange_id, ticker, instrument, underlying_asset_ticker, name, sector, lot, currency, created_date, last_updated_date)
 select 1, {hkex_id}, 
@@ -76,6 +80,16 @@ select 1, {hkex_id},
     NULL, 1, 'HKD', now(), now()
     from hk_stock_option_tmp t
 where t.series_id is NULL
+"""
+
+sql_insert_into_option_meta_data = """insert into option_meta_data
+select series_id, 
+stock_name,
+series_id,
+strike_price, expire_date,
+type, 'HK'
+ from hk_stock_option_tmp
+where is_new = 1
 """
 
 sql_merge_tmp_to_daily_price = """insert into daily_price
@@ -107,6 +121,11 @@ sql_truncate_hk_option = "truncate hk_option_list"
 
 sql_insert_hk_option = """insert into hk_option_list (hkats_code, ticker, name)
 values (%s, %s, %s)
+"""
+
+sql_update_last_price_date = """update symbol s 
+inner join hk_stock_option_tmp t on (s.id = t.series_id)
+set last_price_date= '{batch_date}'
 """
 
 log_header = "HK_STOCK_OPTION"
@@ -255,10 +274,18 @@ def merge_into_main_table(cursor, hkex_id):
         sql = sql_populate_series_id_tmp_table.format(exchange_id = hkex_id)
         cursor.execute(sql)
 
+        # 20220721
+        sql = sql_mark_new
+        cursor.execute(sql)
+
         sql = sql_insert_into_table_new_series.format(hkex_id = hkex_id)
         cursor.execute(sql)
 
         sql = sql_populate_series_id_tmp_table.format(exchange_id = hkex_id)
+        cursor.execute(sql)
+
+        # 20220721
+        sql = sql_insert_into_option_meta_data
         cursor.execute(sql)
 
         sql = sql_merge_tmp_to_daily_price.format(hkex_id = hkex_id)
@@ -267,6 +294,19 @@ def merge_into_main_table(cursor, hkex_id):
         return True
     except Exception as err:
         print("Failed inserting record to main table: {}".format(err))
+        print("Error SQL: " + sql)
+        return False
+
+def update_last_price_date(cursor, batch_date):
+    try:
+        batch_date_str = datetime.datetime.strftime(batch_date, '%Y-%m-%d')
+        # update all series last price date to batch date
+        sql = sql_update_last_price_date.format(batch_date = batch_date_str)
+        cursor.execute(sql)
+
+        return True
+    except Exception as err:
+        print("Failed updating last price date to symbol table: {}".format(err))
         print("Error SQL: " + sql)
         return False
 
@@ -378,6 +418,10 @@ def run_job(batch_date):
         if not success:
             sys.exit(1)
 
+        success = update_last_price_date(cursor, batch_date)
+        if not success:
+            sys.exit(1)
+        
         mydb.commit()
 
         success = drop_table(cursor)

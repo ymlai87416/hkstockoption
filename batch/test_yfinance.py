@@ -77,4 +77,4 @@ def main():
 if __name__ == '__main__':
     hkex = {"abbrev": "HKEX"}
     info, data, success = fetch_data(hkex, '00700', datetime.datetime(2022,7,1), datetime.datetime(2022,7,6))
-    print(data)
+    print(info)

@@ -66,6 +66,12 @@ ON DUPLICATE KEY UPDATE
   volume = VALUES(volume)
 """
 
+sql_update_last_price = """update symbol s
+inner join (select symbol_id, max(price_date) as last_price_date from hkstock_tmp group by symbol_id ) tmp
+set s.last_price_date = greatest(ifnull(s.last_price_date,'1900-01-01'), tmp.last_price_date), 
+    s.last_updated_date= now()
+"""
+
 sql_insert_log_message = """insert into log_message 
 values
 ('{category}', '{message}', '{create_date}')
@@ -187,6 +193,17 @@ def merge_into_price_date(cursor, vendor_id):
         print("Failed recording message: {}".format(err))
         return False
 
+def update_last_price(cursor):
+    try:
+        sql = sql_update_last_price
+        cursor.execute(sql)
+        return True
+    except Exception as err:
+        print("Failed recording message: {}".format(err))
+        return False
+
+
+
 def drop_table(cursor):
     try:
         sql = sql_drop_tmp_table
@@ -239,11 +256,15 @@ def run_job(region, batch_date_str):
         if not success:
             sys.exit(1)
 
+        cnt = 0
         while queue:
             (symbol, retry) = queue.pop(0)
             data, success = dowload_data(symbol, start_date, end_date)
             #print("x")
             #print(data)
+            cnt+=1
+            #if cnt > 5:
+            #    break
 
             if success: 
                 success = insert_record_into_tmp_table(cursor, symbol["id"], data)
@@ -280,6 +301,10 @@ def run_job(region, batch_date_str):
         if not success:
             sys.exit(1)
 
+        success = update_last_price(cursor)
+        if not success:
+            sys.exit(1)
+
         mydb.commit()
 
         success = drop_table(cursor)
@@ -301,5 +326,7 @@ def run_job(region, batch_date_str):
 if __name__ == '__main__':
     region = sys.argv[1]
     batch_date = sys.argv[2]
+
+    # to execute please run as python STOCK_002.py HK 2022-07-20
     
     run_job(region, batch_date)

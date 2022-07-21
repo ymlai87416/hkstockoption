@@ -17,7 +17,8 @@ sql_create_symbol_tmp_table = """create table symbol_tmp (
 	name varchar(255) NULL,
 	sector varchar(255) NULL,
 	lot	int NULL,
-	currency varchar(32) NULL
+	currency varchar(32) NULL,
+    last_price_date datetime NULL
 )
 """
 
@@ -45,9 +46,9 @@ values
 """
 
 sql_insert_series_tmp = """insert into symbol_tmp
-(exchange_id, ticker, instrument, name, sector, lot, currency)
+(exchange_id, ticker, instrument, name, sector, lot, currency, last_price_date)
 values
-(%s, %s, %s, %s, %s, %s, %s)
+(%s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 sql_insert_timepoint_tmp = """insert into daily_price_tmp
@@ -77,9 +78,9 @@ values
 
 sql_merge_series = """insert into symbol
 (version, exchange_id, ticker, instrument, name, sector, lot, 
-    currency, created_date, last_updated_date)
+    currency, created_date, last_updated_date, last_price_date)
 select 1, exchange_id, ticker, instrument, name, sector, lot, currency,
-    now(), now() from symbol_tmp
+    now(), now(), last_price_date from symbol_tmp
 ON DUPLICATE KEY UPDATE
   last_updated_date  = VALUES(last_updated_date),
   version = version+1,
@@ -140,10 +141,12 @@ def create_tmp_table(cursor):
         print("Failed to create temp table: {}".format(err))
         return False
 
-def insert_series_into_tmp(cursor, row, info):
+def insert_series_into_tmp(cursor, row, info, last_price_date):
     try:
+        last_price_date_str = datetime.datetime.strftime(last_price_date, '%Y-%m-%d')
+
         data = (row["exchange_id"], row["ticker"], row["instrument"], 
-            info["longName"], info.get("sector", ""), 0, info["currency"])
+            info["longName"], info.get("sector", ""), 0, info["currency"], last_price_date_str)
 
         sql = sql_insert_series_tmp
         cursor.execute(sql, data)
@@ -304,8 +307,8 @@ def run_job():
             info, prices, success = fetch_data(row["exchange"], row["ticker"], row["start_date"])
 
             if success: 
-
-                success = insert_series_into_tmp(cursor, row, info)
+                last_price_date = prices.index.max()
+                success = insert_series_into_tmp(cursor, row, info, last_price_date)
                 if not success:
                     message = f"Failed to insert symbol to tmp table: {exchange_name}-{ticker}"
                     log_message(cursor, message)
