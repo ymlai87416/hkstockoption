@@ -5,3 +5,4 @@ scipy
 numpy
 pytz
 matplotlib
+mysql-connector-python

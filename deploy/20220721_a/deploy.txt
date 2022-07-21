@@ -1,0 +1,19 @@
+## Create a new table to support HK stock option IV query
+
+## Step
+
+### 1 execute new table SQL
+
+### 2 populate record
+```sql
+insert into option_meta_data
+select id, 
+substr(ticker, 1, 3),
+underlying_asset_ticker,
+cast(substr(ticker, 11) as decimal(19,4)), substr(ticker, 4, 6),
+substr(ticker, 10, 1), 'HK'
+ from symbol
+where instrument = 'HK STOCK OPTION'
+```
+
+### 3 deploy to production

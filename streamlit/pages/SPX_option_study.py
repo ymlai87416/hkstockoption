@@ -50,7 +50,7 @@ def plot_callput_gamma(data):
     fromStrike = spotPrice - 5*40
     toStrike = spotPrice + 5*40
 
-    totalGamma = sum(callGammaEx) - sum(putGammaEx)
+    totalGamma = sum(callGammaEx) + sum(putGammaEx)
     fig, ax = plt.subplots()
     ax.grid()
     ax.bar(strikes, callGammaEx, width=6, linewidth=0.1, edgecolor='k', label="Call Gamma")

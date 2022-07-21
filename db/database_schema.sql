@@ -1,3 +1,5 @@
+-- version 2. add a table for searching option
+-- version 3. latest price date at symbol
 CREATE DATABASE securities_master;
 -- UTF8MB4?
 
@@ -41,6 +43,7 @@ CREATE TABLE symbol (
 	currency varchar(32) NULL,
 	created_date datetime NOT NULL,
 	last_updated_date datetime NOT NULL,
+	last_price_date datetime NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (exchange_id) REFERENCES exchange(id),
 	CONSTRAINT exchange_ticker UNIQUE(exchange_id, ticker)
@@ -137,3 +140,17 @@ create table job_table(
 	FOREIGN KEY (job_id) REFERENCES job(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
 
+
+--v2 new table
+create table option_meta_data(
+	symbol_id bigint NOT NULL,
+	ticker varchar(32) NOT NULL,
+	underlying_asset_ticker varchar(32) NOT NULL,
+	strike_price decimal(19,4) NULL,
+	expiry datetime NOT NULL,
+	type varchar(1) NOT NULL,
+	region varchar(5) NOT NULL,
+	PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=UTF8MB4;
+
+-- query by region, strike_price (range) and expiry (range)

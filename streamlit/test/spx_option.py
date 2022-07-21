@@ -328,7 +328,8 @@ def run():
     exportDailyNetGammaExposureInfo(todayDate, spotPrice, strikes, dfAggToday['TotalGamma'].to_numpy() )
     showDailyNetGammaExposure(todayDate, strikes, dfAggToday, spotPrice, fromStrike, toStrike)
 
-
+    #df[df.today].to_csv("/Users/yiuminglai/GitProjects/hkstockoption/streamlit/test/data/" + "gammaT.csv")
+    #dfAggToday.to_csv("/Users/yiuminglai/GitProjects/hkstockoption/streamlit/test/data/" + "gammaTAgg.csv")
     # ---=== CALCULATE GAMMA PROFILE ===---
     levels = np.linspace(fromStrike, toStrike, 60)  #origin 60
     #levels = np.range(fromStrike, toStrike)

@@ -8,7 +8,8 @@ EXPOSE 80
 
 COPY config.py /app
 COPY streamlit_app.py /app
-COPY pages/hk_stockoption_diff.py /app/pages
+COPY pages/香港期權排序.py /app/pages
+COPY pages/香港期權變化.py /app/pages
 COPY pages/SPX_option_study.py /app/pages
 COPY .streamlit/config.toml /app/.streamlit
 

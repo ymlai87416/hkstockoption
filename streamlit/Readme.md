@@ -11,3 +11,9 @@
     error: the start and end does not quite right...
 
 3. Selected stock option movement ranking function
+
+### To develop, run the following commands
+
+```
+streamlit run streamlit_app.py
+```
