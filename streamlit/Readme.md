@@ -4,7 +4,8 @@
 
 2. US stock index gamma strike (S&P, Nasdaq)
 
-    resources list: https://getpocket.com/read/3544571341
+    resources list: https://perfiliev.co.uk/market-commentary/how-to-calculate-gamma-exposure-and-zero-gamma-level/?utm_source=pocket_mylist
+    
     a readable chart 390 => 380-400, so we have to have 10 char.
     from 0.8 => 1.2 = 3120 -> 4680
     find a way to modify the program to do a single expiry date.

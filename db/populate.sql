@@ -28,3 +28,8 @@ insert into exchange
 values
 (1, 'NASDAQ', 'National Association of Securities Dealers Automated Quotations', 'New York', 'USA', 'USD', now(), now());
 
+-- CYPTO
+insert into exchange
+(version, abbrev, name, city, country, currency, created_date, last_updated_date)
+values
+(1, 'CRYPTO', 'Crypto', 'Unknown', 'UKN', 'USD', now(), now());

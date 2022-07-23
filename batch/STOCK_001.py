@@ -144,9 +144,13 @@ def create_tmp_table(cursor):
 def insert_series_into_tmp(cursor, row, info, last_price_date):
     try:
         last_price_date_str = datetime.datetime.strftime(last_price_date, '%Y-%m-%d')
+        if "longName" in info:
+            name = info["longName"]
+        else:
+            name = info["name"]
 
         data = (row["exchange_id"], row["ticker"], row["instrument"], 
-            info["longName"], info.get("sector", ""), 0, info["currency"], last_price_date_str)
+            name, info.get("sector", ""), 0, info["currency"], last_price_date_str)
 
         sql = sql_insert_series_tmp
         cursor.execute(sql, data)

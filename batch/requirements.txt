@@ -5,3 +5,8 @@ pymongo[srv]
 scipy
 numpy
 pytz
+TA-Lib
+pysftp
+matplotlib
+
+git+https://github.com/ymlai87416/ymlai87416_common.git@v1.1#egg=ymlai87416_common

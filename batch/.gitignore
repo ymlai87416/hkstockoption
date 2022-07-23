@@ -1,1 +1,3 @@
 *.pickle
+summary_config.py
+service_account.json

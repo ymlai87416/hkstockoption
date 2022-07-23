@@ -4,3 +4,5 @@ set_env.sh
 streamlit/config_debug.py
 streamlit/mongodb_test.py
 scraping_api
+streamlit/test/*
+streamlit/.streamlit/secrets.toml

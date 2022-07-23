@@ -41,6 +41,28 @@ def fetch_data(exchange, symbol, price_start_date, price_end_date):
         print(exc_type, fname, exc_tb.tb_lineno)
         return None, None, False
 
+def fetch_crypto(ticker, price_start_date, price_end_date):
+    """
+    return series info and also price data from start_date to now
+    """
+    try:
+
+        start_date_str = util.format_date(price_start_date)
+        end_date_str = util.format_date(price_end_date)
+
+        print(start_date_str + " " + end_date_str)
+
+        info = yf.Ticker(ticker).info
+        data = yf.download(ticker, start=start_date_str, end=end_date_str)
+
+        return info, data, True
+    except Exception as err:
+        print("Failed download data from Yahoo: {}".format(err))
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
+        return None, None, False
+
 
 def save_object(info, data):
     with open('info.pickle', 'wb') as handle:
@@ -76,5 +98,8 @@ def main():
 
 if __name__ == '__main__':
     hkex = {"abbrev": "HKEX"}
-    info, data, success = fetch_data(hkex, '00700', datetime.datetime(2022,7,1), datetime.datetime(2022,7,6))
+    #info, data, success = fetch_data(hkex, '00700', datetime.datetime(2022,7,1), datetime.datetime(2022,7,6))
+    info, data, success = fetch_crypto('ETH-USD', datetime.datetime(2022,7,1), datetime.datetime(2022,7,6))
     print(info)
+    print("===")
+    print(data)

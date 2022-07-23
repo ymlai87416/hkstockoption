@@ -11,7 +11,8 @@ def format_datetime(date):
     return date.strftime('%Y-%m-%d %H:%M:%S')
 
 def get_yahoo_ticker(exchange, symbol):
+    # include HKEX, NASDAQ, NYSE, CRYPTO
     if(exchange == "HKEX"):
         return (str(symbol)[1:])+".HK"
-    else:
+    else: 
         return str(symbol)
