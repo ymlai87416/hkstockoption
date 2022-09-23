@@ -84,10 +84,10 @@ def get_data(symbol, start_date, end_date):
     data = pdr.get_data_yahoo(symbol, start=start_date_str, end=end_date_str)
     return data
 
-def process_list(asset_list):
+def process_list(batch_date, asset_list):
     
-    start_date = datetime.now()  + timedelta(days=-history_date_range)
-    end_date = datetime.now()
+    start_date = batch_date  + timedelta(days=-history_date_range)
+    end_date = batch_date
 
     result = []
     for c in asset_list:
@@ -111,11 +111,11 @@ def process_list(asset_list):
 
     return result
 
-def process_list_2(sector):
+def process_list_2(batch_date, sector):
 
     result = []
     for k in sector.keys():
-        record = process_list(sector[k])
+        record = process_list(batch_date, sector[k])
         result.append( {"sector": k, "data": record} )
 
     return result
@@ -153,28 +153,29 @@ def save_mongo(data):
 
     # ok if failed to delete
     try:
-        db.reports.delete_many({"batch_date": data["batch_date"]})
+        collection.delete_many({"batch_date": data["batch_date"]})
     except: 
         print("There is no record in collection")
 
     result=collection.insert_one(data)
     client.close()
 
-def main():
+def main(batch_date):
+    batch_date = datetime.strptime(batch_date, '%Y%m%dT%H%M%S')
     result = {}
 
     config = read_config()
 
-    result["crypto"] = process_list(config["crypto"])
-    result["commodity"] = process_list(config["commodity"])
-    result["currency"] = process_list(config["currency"])
-    result["stock"] = process_list_2(config["stock"])
-    result["batch_date"] =  datetime.now(pytz.timezone('US/Eastern')).strftime("%Y%m%d") # US new york time
+    result["crypto"] = process_list(batch_date, config["crypto"])
+    result["commodity"] = process_list(batch_date, config["commodity"])
+    result["currency"] = process_list(batch_date, config["currency"])
+    result["stock"] = process_list_2(batch_date, config["stock"])
+    result["batch_date"] = batch_date.strftime("%Y%m%d") # US new york time
 
-    print("DD")
-    print(result)
     save_mongo(result)
 
 
 if __name__ == "__main__":
-    main()
+    batch_date = sys.argv[1]
+    
+    main(batch_date)

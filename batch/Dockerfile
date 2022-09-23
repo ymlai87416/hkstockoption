@@ -16,6 +16,7 @@ COPY SPXOPTION_001.py .
 COPY REPORT_001.py .
 COPY REPORT_001.py .
 COPY DUMP_SECRET.py .
+COPY ADAM_001.py .
 
 # no entry point
 # ENTRYPOINT ["python","/app/consumer.py"]
