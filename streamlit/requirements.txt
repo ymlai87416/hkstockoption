@@ -6,3 +6,6 @@ numpy
 pytz
 matplotlib
 mysql-connector-python
+mpl_finance
+pandas_datareader
+yfinance
